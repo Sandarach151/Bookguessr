@@ -1,0 +1,11 @@
+{
+  "name": "bookguessr",
+  "version": "1.0.0",
+  "description": "\"As I always say, keep your friends rich, and your enemies rich, and then find out which is which\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
