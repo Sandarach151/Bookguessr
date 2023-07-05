@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookguessrV2</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+        }
+    
+        h1 {
+          text-align: center;
+        }
+    
+        .main {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #f1f1f1;
+          border-radius: 5px;
+        }
+    
+        #curExtract {
+          margin-bottom: 20px;
+        }
+    
+        button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+    
+        #Next {
+          background-color: #ccc;
+          color: #fff;
+          font-size: 24px;
+          text-align: center;
+        }
+    
+        #Next:hover {
+          background-color: #ccc;
+        }
+    
+        button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+    
+        button#Next:disabled {
+          cursor: not-allowed;
+        }
+    
+        button#Next:enabled {
+          background-color: #4CAF50;
+        }
+    
+        button#Next:enabled:hover {
+          background-color: #45a049;
+        }
+    
+        button#Next:enabled:active {
+          background-color: #3d8b40;
+        }
+    
+        button#Next:focus {
+          outline: none;
+        }
+    
+        button#Next:active {
+          transform: translateY(1px);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Bookguessr</h1>
+    <section class="main">
+    <section id="curExtract">
+        <%= curExtract %>
+    </section>
+    
+    <br>
+    <% for(let i=0; i<options.length; i++){ %>
+        <% if(options[i]==curBookName){ %>
+            <button id= <%=`right_${i}`%>> <%= options[i] %></button>
+        <% } else{ %>
+            <button id= <%=`wrong_${i}`%>> <%= options[i] %></button>
+        <% } %>
+        <br>
+    <% } %>
+    <button disabled="true" style="font-size: 50px;" id="Next">Next</button>
+    </section>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#Next").click(function(){
+            location.reload();
+        })
+		for(let i=0; i<5; i++){
+			if($("#wrong_"+i).get(0)!=null){
+				$("#wrong_"+i).click(function(){
+					$("#wrong_"+i).css({
+                        'color': 'red',
+                        'font-size': '16px',
+                        'font-weight': 'bold'
+                    });
+				})
+			}
+		}
+		for(let i=0; i<5; i++){
+			if($("#right_"+i).get(0)!=null){
+				$("#right_"+i).click(function(){
+					$("#right_"+i).css({
+                        'color': 'green',
+                        'font-size': '16px',
+                        'font-weight': 'bold'
+                    });
+                    $("#Next").prop('disabled', false);
+                    for(let i=0; i<5; i++){
+                        if($("#wrong_"+i).get(0)!=null){
+                            $("#wrong_"+i).prop('disabled', true);
+                        }
+                    }
+				})
+			}
+		}
+	});
+</script>
+</html>
