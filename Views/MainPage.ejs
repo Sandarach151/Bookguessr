@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookguessr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <style>
+      .navbar-item:hover,
+      .navbar-link:hover,
+      #signUpButton:hover,
+      #logInButton:hover {
+        text-decoration: none !important;
+      }
+    </style>
+    <div class="navbar-brand">
+      <a class="navbar-item" href=".\">
+        Bookguessr
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href=".\play">
+          Play
+        </a>
+  
+        <a class="navbar-item">
+          Leaderboard
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href=".\upload">
+              Upload
+            </a>
+            <a class="navbar-item">
+              Jobs
+            </a>
+            <a class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" id="signUpButton">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" id="logInButton">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>  
+
+  <header class="bg-primary text-white py-5">
+    <div class="container text-center">
+      <h1 class="display-4">Welcome to Bookguessr</h1>
+      <p class="lead">Test your knowledge of classic literature!</p>
+      <a href=".\play" class="btn btn-light btn-lg">Play Now</a>
+    </div>
+  </header>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h2 class="text-center">How It Works</h2>
+          <p class="text-center">Read an excerpt from a vintage book and guess the correct title from the multiple-choice options.</p>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness..."</p>
+                  <footer class="blockquote-footer">A Tale of Two Cities - Charles Dickens</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."</p>
+                  <footer class="blockquote-footer">Pride and Prejudice - Jane Austen</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"All happy families are alike; each unhappy family is unhappy in its own way."</p>
+                  <footer class="blockquote-footer">Anna Karenina - Leo Tolstoy</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It was a bright cold day in April, and the clocks were striking thirteen."</p>
+                  <footer class="blockquote-footer">Nineteen Eighty-Four - George Orwell</footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h3>Leaderboard</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>9.8</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>9.5</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Mark Johnson</td>
+                <td>9.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <h3>User Testimonials</h3>
+          <div class="card">
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida semper tortor, eu mollis erat mollis et.</p>
+                <footer class="blockquote-footer">John Doe</footer>
+              </blockquote>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>Fusce hendrerit nisl ac lectus viverra, sed aliquam sapien tincidunt. Proin congue felis at diam pellentesque, ut lacinia enim hendrerit.</p>
+                <footer class="blockquote-footer">Jane Smith</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </main>
+
+  <footer class="bg-primary text-white py-3 text-center">
+    <div class="container">
+      <p>&copy; 2023 Bookguessr. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
