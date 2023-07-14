@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookguessr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <style>
+      .navbar-item:hover,
+      .navbar-link:hover,
+      #signUpButton:hover,
+      #logInButton:hover {
+        text-decoration: none !important;
+      }
+      #optionBtn1,
+      #optionBtn2,
+      #optionBtn3,
+      #optionBtn4,
+      #optionBtn5,
+      #optionBtn6{
+        padding: 15px;
+        margin: 10px;
+        font-size: large;
+      }
+      #topPlaceholder{
+        color: rgb(101, 122, 227);
+      }
+      #revealBtn{
+        padding: 20px;
+        font-size: x-large;
+      }
+    </style>
+    <div class="navbar-brand">
+      <a class="navbar-item" href=".\MainPage.html">
+        Bookguessr
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href=".\Play.html">
+          Play
+        </a>
+  
+        <a class="navbar-item">
+          Leaderboard
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              About
+            </a>
+            <a class="navbar-item">
+              Jobs
+            </a>
+            <a class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" id="signUpButton">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" id="logInButton">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center" id="topPlaceholder">Excerpt</h2>
+        <div class="mb-4">
+          <blockquote class="blockquote">
+            <p>Mrs. Wilkins had never yet spoken to Mrs. Arbuthnot, who belonged to one of the various church sets, and who analysed, classified, divided and registered the poor; whereas she and Mellersh, when they did go out, went to the parties of impressionist painters, of whom in Hampstead there were many. Mellersh had a sister who had married one of them and lived up on the Heath, and because of this alliance Mrs. Wilkins was drawn into a circle which was highly unnatural to her, and she had learned to dread pictures. She had to say things about them, and she didn’t know what to say. She used to murmur, “Marvellous,” and feel that it was not enough. But nobody minded. Nobody listened. Nobody took any notice of Mrs. Wilkins. She was the kind of person who is not noticed at parties. Her clothes, infested by thrift, made her practically invisible; her face was non-arresting; her conversation was reluctant; she was shy. And if one’s clothes and face and conversation are all negligible, thought Mrs. Wilkins, who recognised her disabilities, what, at parties, is there left of one?</p>
+            <footer class="blockquote-footer">A Tale of Two Cities - Charles Dickens</footer>
+          </blockquote>
+        </div>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn1">Book Option 1</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn2">Book Option 2</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn3">Book Option 3</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn4">Book Option 4</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn5">Book Option 5</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-light btn-block" id="optionBtn6">Book Option 6</button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-primary btn-block btn-lg" id="revealBtn">Reveal Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
