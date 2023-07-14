@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.set('views', './Views');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
