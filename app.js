@@ -156,14 +156,24 @@ async function shuffle(array, n) {
     return shuffledArray.slice(0, Math.min(n, array.length));
 }
 
-app.post('/uploading', upload.single('uploaded_file'), function (req, res, next) {
+app.post('/upload-checkpoint', upload.none(), function(req, res, next) {
+    console.log(req.body);
+    if(req.body.username=='sandarach' && req.body.password=='genesis4723'){
+        res.render('Upload.ejs');
+    }
+    else{
+        res.render('UploadCheckpoint.ejs');
+    }
+});
+
+app.post('/upload', upload.single('uploaded_file'), function (req, res, next) {
     mergedProcess(req.file.path, req.body.authorName, req.body.authorAbout, req.body.bookName, req.body.bookAbout, req.body.bookPubYear);
     res.render('Upload.ejs');
 });
 
-app.get('/upload', (req, res) => {
-    res.render('Upload.ejs');
-})
+app.get('/upload-checkpoint', function(req, res) {
+    res.render('UploadCheckpoint.ejs');
+});
 
 app.get('/play', (req, res) => {
     var curExtractID;
