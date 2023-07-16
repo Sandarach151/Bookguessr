@@ -157,7 +157,6 @@ async function shuffle(array, n) {
 }
 
 app.post('/upload-checkpoint', upload.none(), function(req, res, next) {
-    console.log(req.body);
     if(req.body.username=='sandarach' && req.body.password=='genesis4723'){
         res.render('Upload.ejs');
     }
