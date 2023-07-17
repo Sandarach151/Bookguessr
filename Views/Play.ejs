@@ -235,7 +235,7 @@
             $("#skipBtn").prop('disabled', false);
             $("#bookAbout").fadeTo("slow", 1);
             $("#authorAbout").fadeTo("slow", 1);
-            $("html, body").animate({ scrollTop: $(document).height() }, 2000);
+            $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 500);
             for(let j=0; j<6; j++){
                 if($("#wrong_"+j).get(0)!=null){
                     $("#wrong_"+j).prop('disabled', true);
@@ -249,7 +249,7 @@
         $("#skipBtn").prop('disabled', false);
         $("#bookAbout").fadeTo("slow", 1);
         $("#authorAbout").fadeTo("slow", 1);
-        $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 1000);
+        $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 500);
         for(let i=0; i<6; i++){
           if($("#wrong_"+i).get(0)!=null){
             $("#wrong_"+i).prop('disabled', true);
