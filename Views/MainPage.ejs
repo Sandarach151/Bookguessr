@@ -7,6 +7,22 @@
   <title>Bookguessr</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #bigPlayBtn{
+      font-size: 35px;
+      padding: 20px;
+    }
+    #bigPlayBtn:hover{
+      background-color: rgb(0, 0, 0);      
+      background-color: black;
+      border-color: black;
+    }
+    #bigPlayBtn:focus{
+      background-color: rgb(0, 0, 0);      
+      background-color: black;
+      border-color: black;
+    }
+  </style>
 </head>
 <body style="background-color: black; color: white;">
   <nav class="navbar is-link" role="navigation" aria-label="main navigation">
@@ -53,13 +69,13 @@
 
   <header class="bg-primary text-white py-5">
     <div class="container text-center">
-      <h1 class="display-4">Welcome to Bookguessr</h1>
+      <h1 class="display-3">Welcome to Bookguessr</h1>
       <p class="lead">Test your knowledge of classic literature!</p>
-      <br>
-      <div class="d-grid gap-2 col-6 mx-auto">
-        <a href=".\play" class="btn btn-light btn-block btn-lg" style="font-size: xx-large; font-weight: 400;">Play Now</a>
-      </div>
     </div>
+  </header>
+
+  <header class="bg-black text-white py-0">
+    <a href=".\play" class="btn btn-secondary btn-block btn-lg" id="bigPlayBtn">Play Now</a>
   </header>
 
   <main class="py-5">
