@@ -46,47 +46,7 @@
   </style>
 </head>
 <body>
-  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
-    <style>
-      .navbar-item:hover,
-      .navbar-link:hover,
-      #signUpButton:hover,
-      #logInButton:hover {
-        text-decoration: none !important;
-      }
-    </style>
-    <div class="navbar-brand">
-      <a class="navbar-item" href=".\">
-        Bookguessr
-      </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-  
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href=".\play">
-          Play
-        </a>
-        
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-  
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href=".\upload-checkpoint">
-              Upload
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>  
+  <%- include('Navbar-Blue.ejs') %> 
 
   <div class="container mt-5">
     <div class="card">

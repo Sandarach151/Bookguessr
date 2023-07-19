@@ -248,6 +248,10 @@ app.get('/play', (req, res) => {
         });
 });
 
+app.get('/about', (req, res) => {
+    res.render('About.ejs');
+})
+
 app.get('/', (req, res) => {
     res.render('MainPage.ejs');
 })

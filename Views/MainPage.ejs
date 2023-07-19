@@ -25,47 +25,7 @@
   </style>
 </head>
 <body style="background-color: black; color: white;">
-  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
-    <style>
-      .navbar-item:hover,
-      .navbar-link:hover,
-      #signUpButton:hover,
-      #logInButton:hover {
-        text-decoration: none !important;
-      }
-    </style>
-    <div class="navbar-brand">
-      <a class="navbar-item" href=".\">
-        Bookguessr
-      </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-  
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href=".\play">
-          Play
-        </a>
-        
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-  
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href=".\upload-checkpoint">
-              Upload
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>  
+  <%- include('Navbar-Blue.ejs') %>
 
   <header class="bg-primary text-white py-5">
     <div class="container text-center">
@@ -158,20 +118,10 @@
           </div>
         </div>
       </div>
-      <div class="row mt-5">
-        <div class="col-md-8 offset-md-2">
-          <h2 class="text-left">How It Works</h2>
-          <p>Bookguessr is an addictive online game that puts your knowledge of classic literature to the test. Dive into the world of vintage books as you read intriguing excerpts and guess the correct titles from multiple-choice options. Whether you're a bookworm or simply enjoy a challenge, Bookguessr offers a fun and engaging way to explore iconic literary works. Immerse yourself in the captivating stories of renowned authors, challenge your friends, and climb the leaderboard. Expand your literary horizons and see if you have what it takes to become the ultimate Bookguessr!</p>
-        </div>
-      </div>  
     </div>
   </main>
 
-  <footer class="bg-primary text-white py-3 text-center">
-    <div class="container">
-      <p>&copy; 2023 Bookguessr. All rights reserved.</p>
-    </div>
-  </footer>
+  <%- include('Footer-Blue.ejs') %>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
