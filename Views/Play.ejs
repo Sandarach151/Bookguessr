@@ -45,13 +45,16 @@
     }
   </style>
 </head>
-<body>
-  <%- include('Navbar-Blue.ejs') %> 
-
+<body style="background-color: black; color: white;">
+  <%- include('Partials/Navbar-Blue.ejs') %> 
+  <header class="bg-primary text-white py-3">
+    <div class="container text-center">
+      <h1 class="display-4">Excerpt</h1>
+    </div>
+  </header>
   <div class="container mt-5">
     <div class="card">
       <div class="card-body">
-        <h2 class="text-center" id="topPlaceholder">Excerpt</h2>
         <div class="mb-4">
           <blockquote class="blockquote">
             <p><%= curExtract %></p>
@@ -138,7 +141,7 @@
     <br>
     <br>
   </div>
-
+  <%- include('Partials/Footer-Blue.ejs') %>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

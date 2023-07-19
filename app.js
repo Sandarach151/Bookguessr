@@ -50,7 +50,7 @@ async function mergedProcess(filepath, authorName, authorAbout, bookName, bookAb
         console.log(chapterText.length);
         const selectedExtracts = await filter(chapterText);
         console.log(selectedExtracts.length);
-        const shuffledExtracts = await shuffle(selectedExtracts, 2000);
+        const shuffledExtracts = await shuffle(selectedExtracts, 500);
         console.log(shuffledExtracts.length);
 
         const haveAuthor = await squery('SELECT authorID FROM author WHERE authorName = ?', [authorName]);
