@@ -45,80 +45,16 @@
     }
   </style>
 </head>
-<body>
-    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
-        <style>
-          .navbar-item:hover,
-          .navbar-link:hover,
-          #signUpButton:hover,
-          #logInButton:hover {
-            text-decoration: none !important;
-          }
-        </style>
-        <div class="navbar-brand">
-          <a class="navbar-item" href=".\">
-            Bookguessr
-          </a>
-      
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item" href=".\play">
-              Play
-            </a>
-      
-            <a class="navbar-item">
-              Leaderboard
-            </a>
-      
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                More
-              </a>
-      
-              <div class="navbar-dropdown">
-                <a class="navbar-item" href=".\upload-checkpoint">
-                  Upload
-                </a>
-                <a class="navbar-item">
-                  Jobs
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-            </div>
-          </div>
-      
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary" id="signUpButton">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light" id="logInButton">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+<body style="background-color: black; color: white;">
+  <%- include('Partials/Navbar-Blue.ejs') %> 
+  <header class="bg-primary text-white py-3">
+    <div class="container text-center">
+      <h1 class="display-4">Excerpt</h1>
+    </div>
+  </header>
   <div class="container mt-5">
     <div class="card">
       <div class="card-body">
-        <h2 class="text-center" id="topPlaceholder">Excerpt</h2>
         <div class="mb-4">
           <blockquote class="blockquote">
             <p><%= curExtract %></p>
@@ -205,7 +141,7 @@
     <br>
     <br>
   </div>
-
+  <%- include('Partials/Footer-Blue.ejs') %>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

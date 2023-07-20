@@ -27,7 +27,7 @@ const con = mysql.createConnection({
 	host: "bookguessr-db.clybag8f9qab.ap-southeast-2.rds.amazonaws.com",
 	user: "squire",
 	password: "genesis4723",
-	database: "bookguessr_db"
+	database: "bookguessr_db2"
 });
 
 async function squery(queryString, values) {
@@ -50,7 +50,7 @@ async function mergedProcess(filepath, authorName, authorAbout, bookName, bookAb
         console.log(chapterText.length);
         const selectedExtracts = await filter(chapterText);
         console.log(selectedExtracts.length);
-        const shuffledExtracts = await shuffle(selectedExtracts, 2000);
+        const shuffledExtracts = await shuffle(selectedExtracts, 500);
         console.log(shuffledExtracts.length);
 
         const haveAuthor = await squery('SELECT authorID FROM author WHERE authorName = ?', [authorName]);
@@ -122,13 +122,13 @@ async function toText(chapters) {
 async function filter(chapterText) {
     var selectedExtracts = [];
     for (let i = 0; i < chapterText.length; i++) {
-        const sentences = chapterText[i].split("\n");
+        const sentences = chapterText[i].split(". ");
         const filteredSentences = sentences.filter(sentence => sentence.length >= 10);
         // console.log(filteredSentences.length);
-        const chunkSize = 15;
+        const chunkSize = 5;
         const chunks = [];
         for (let j = 0; j < filteredSentences.length; j += chunkSize) {
-            const chunk = filteredSentences.slice(j, j + chunkSize).join(' ');
+            const chunk = filteredSentences.slice(j, j + chunkSize).join('. ');
             chunks.push(chunk);
         }
         // console.log(chunks.length);
@@ -247,6 +247,10 @@ app.get('/play', (req, res) => {
             console.log(err);
         });
 });
+
+app.get('/about', (req, res) => {
+    res.render('About.ejs');
+})
 
 app.get('/', (req, res) => {
     res.render('MainPage.ejs');
