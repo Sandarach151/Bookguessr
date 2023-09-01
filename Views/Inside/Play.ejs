@@ -147,8 +147,21 @@
 </body>
 <script>
     $(document).ready(function(){
+      var isCorrect = true;
+      var hasTried = false;
       $("#skipBtn").click(function(){
+        if(!hasTried){
+          $("#skipBtn").prop('disabled', true);
+          $("#skipBtn").html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>')
           location.reload();
+        }
+        else{
+          $("#skipBtn").prop('disabled', true);
+          $("#skipBtn").html('<div class="spinner-grow" role="status"><span class="sr-only">Loading...</span></div>')
+          $.post("/play", {isCorrect}, function(){
+            location.reload();
+          })
+        }
       })
       $("#bookAbout").hide();
       $("#authorAbout").hide();
@@ -159,6 +172,8 @@
             $("#wrong_"+i).addClass('btn-outline-danger');
             $("#wrong_"+i).prop('disabled', true);
             $("#skipBtn").prop('disabled', true);
+            isCorrect = false;
+            hasTried = true;
           })
         }
       }
@@ -178,6 +193,7 @@
                     $("#wrong_"+j).prop('disabled', true);
                 }
             }
+            hasTried = true;
           })
         }
       }
@@ -199,6 +215,8 @@
             $("#right_"+i).addClass('btn-success');
           }
         }
+        isCorrect = false;
+        hasTried = true;
       })
 	});
 </script>

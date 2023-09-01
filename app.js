@@ -45,6 +45,14 @@ app.get('/upload-checkpoint', async (req, res) => {
     }
 });
 
+app.post('/play', async (req, res) => {
+    console.log(req.body.isCorrect);
+    if(req.body.isCorrect=="true"){
+        await squery('UPDATE users SET userPoints = userPoints + 100 WHERE userID = ?', [req.session.user_id]);
+    }
+    res.redirect('./play');
+})
+
 app.get('/play', async (req, res) => {
     if(!req.session.user_id){
         res.render('Outside/Login.ejs');
