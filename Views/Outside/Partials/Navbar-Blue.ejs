@@ -3,7 +3,8 @@
       .navbar-item:hover,
       .navbar-link:hover,
       #signUpButton:hover,
-      #logInButton:hover {
+      #logInButton:hover,
+      .button {
         text-decoration: none !important;
       }
     </style>
@@ -29,16 +30,21 @@
           About
         </a>
         
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
+        <a class="navbar-item" href=".\about">
+          Leaderboard
+        </a>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-light" href=".\signup">
+            Sign up
           </a>
-  
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href=".\upload-checkpoint">
-              Upload
-            </a>
-          </div>
+          <a class="button is-light" href=".\login">
+            Log in
+          </a>
         </div>
       </div>
     </div>

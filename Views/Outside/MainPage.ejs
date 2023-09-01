@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://st2.depositphotos.com/1003899/5538/v/950/depositphotos_55385721-stock-illustration-stylized-calligraphic-b.jpg" type="image/x-icon">
+  <title>Bookguessr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    #bigPlayBtn{
+      font-size: 30px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body style="background-color: black; color: white;">
+  <%- include('Partials/Navbar-Blue.ejs') %>
+
+  <header class="bg-primary text-white py-5">
+    <div class="container text-center">
+      <h1 class="display-3">Welcome to Bookguessr</h1>
+      <p class="lead">Test your knowledge of classic literature!</p>
+      <a href=".\play" class="btn btn-outline-light btn-lg col-4" role="button" id="bigPlayBtn">Play</a>
+    </div>
+  </header>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Sample Excerpts</h1>
+          <br>
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness..."</p>
+                  <footer class="blockquote-footer">A Tale of Two Cities - Charles Dickens</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."</p>
+                  <footer class="blockquote-footer">Pride and Prejudice - Jane Austen</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"All happy families are alike; each unhappy family is unhappy in its own way."</p>
+                  <footer class="blockquote-footer">Anna Karenina - Leo Tolstoy</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It was a bright cold day in April, and the clocks were striking thirteen."</p>
+                  <footer class="blockquote-footer">Nineteen Eighty-Four - George Orwell</footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <div class="card-deck">
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"It's a dangerous business, Frodo, going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to."</p>
+                  <footer class="blockquote-footer">The Lord of the Rings - J.R.R. Tolkien</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"Remember that all worlds draw to an end and that noble death is a treasure which no one is too poor to buy."</p>
+                  <footer class="blockquote-footer">The Chronicles of Narnia - C.S. Lewis</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"Suffering has been stronger than all other teaching, and has taught me to understand what your heart used to be. I have been bent and broken, but - I hope - into a better shape."</p>
+                  <footer class="blockquote-footer">Great Expectations - Charles Dickens</footer>
+                </blockquote>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>"The strongest of all warriors are these two — Time and Patience."</p>
+                  <footer class="blockquote-footer">War and Peace - Leo Tolstoy</footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('Partials/Footer-Blue.ejs') %>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
