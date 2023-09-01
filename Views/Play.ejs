@@ -183,6 +183,7 @@
       $("#revealBtn").click(function(){
         $("#skipBtn").html("Next");
         $("#skipBtn").prop('disabled', false);
+        $("#revealBtn").prop('disabled', true);
         $("#bookAbout").fadeTo("slow", 1);
         $("#authorAbout").fadeTo("slow", 1);
         $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 500);
