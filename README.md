@@ -12,9 +12,6 @@ Welcome to the readme file for the Bookguessr website! This document provides an
 ## Description
 The Bookguessr website is a platform designed for testing your knowledge of classic literature by presenting sample excerpts from well-known books. Users can enjoy reading these excerpts and trying to guess the book's title and author.
 
-### Homepage
-![Bookguessr Homepage](https://st2.depositphotos.com/1003899/5538/v/950/depositphotos_55385721-stock-illustration-stylized-calligraphic-b.jpg)
-
 The homepage includes the following components:
 - **Navbar**: A navigation bar at the top of the page.
 - **Header**: A welcoming header with a prominent "Play" button to start the game.
