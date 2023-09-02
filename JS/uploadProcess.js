@@ -1,5 +1,7 @@
 var EPub = require('epub');
 const cheerio = require('cheerio');
+const sqlcon = require("./sqlcon");
+const squery = sqlcon.squery;
 
 async function mergedProcess(filepath, authorName, authorAbout, bookName, bookAbout, bookPubYear) {
     try {
@@ -115,4 +117,4 @@ async function shuffle(array, n) {
     return shuffledArray.slice(0, Math.min(n, array.length));
 }
 
-module.mergedProcess = mergedProcess;
+exports.mergedProcess = mergedProcess;
