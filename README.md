@@ -1,4 +1,4 @@
-# Bookguessr Website Readme
+# Readme
 
 Welcome to the readme file for the Bookguessr website! This document provides an overview of the website's structure, components, and some important details for developers and users.
 
