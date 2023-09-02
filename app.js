@@ -20,19 +20,23 @@ app.use(bodyParser.json());
 app.use(session({secret: 'squire'}));
 app.set('views', './Views');
 
+app.get('/logout', (req, res) => {
+    req.session.user_id = null;
+    res.redirect('./');
+})
 
 app.post('/upload-checkpoint', (req, res) => {
     if(req.body.username=='sandarach' && req.body.password=='genesis4723'){
-        res.render('Upload.ejs');
+        res.render('Outside/Upload.ejs');
     }
     else{
-        res.render('UploadCheckpoint.ejs');
+        res.render('Outside/UploadCheckpoint.ejs');
     }
 });
 
 app.post('/upload', upload.single('uploaded_file'), function (req, res, next) {
     mergedProcess(req.file.path, req.body.authorName, req.body.authorAbout, req.body.bookName, req.body.bookAbout, req.body.bookPubYear);
-    res.render('Upload.ejs');
+    res.render('Outside/Upload.ejs');
 });
 
 app.get('/upload-checkpoint', async (req, res) => {
@@ -40,10 +44,7 @@ app.get('/upload-checkpoint', async (req, res) => {
         res.render('Outside/UploadCheckpoint.ejs');
     }
     else{
-        const data = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
-        const username = data[0].userName;
-        const points = data[0].userPoints;
-        res.render('Inside/UploadCheckpoint.ejs', {username, points});
+        res.redirect('./');
     }
 });
 
