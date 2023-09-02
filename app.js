@@ -12,6 +12,8 @@ const signup = require("./JS/signup");
 const insertUser = signup.insertUser;
 const handlePlay = require('./JS/handlePlay');
 const showPlay = handlePlay.showPlay;
+const sorting  = require('./JS/sorting');
+const sortBy = sorting.sortBy;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -45,10 +47,9 @@ app.get('/upload-checkpoint', async (req, res) => {
     }
 });
 
-app.post('/play', async (req, res) => {
-    console.log(req.body.isCorrect);
+app.post('/play', (req, res) => {
     if(req.body.isCorrect=="true"){
-        await squery('UPDATE users SET userPoints = userPoints + 100 WHERE userID = ?', [req.session.user_id]);
+        squery('UPDATE users SET userPoints = userPoints + 100 WHERE userID = ?', [req.session.user_id]);
     }
     res.redirect('./play');
 })
@@ -83,7 +84,9 @@ app.get('/signup', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-    insertUser(req.body.username, req.body.password);
+    if(req.body.password==req.body.repassword){
+        insertUser(req.body.username, req.body.password);
+    }
     res.redirect('./');
 })
 
@@ -105,6 +108,22 @@ app.post('/login', async (req, res) => {
         else{
             res.redirect('./login');
         }
+    }
+})
+
+app.get('/leaderboard', async (req, res) => {
+    if(!req.session.user_id){
+        const usersData = await squery('SELECT userName, userPoints FROM users');
+        usersData.sort(sortBy('userPoints'));
+        res.render("Outside/Leaderboard.ejs", {usersData});
+    }
+    else{
+        const data = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
+        const username = data[0].userName;
+        const points = data[0].userPoints;
+        const usersData = await squery('SELECT userName, userPoints FROM users');
+        usersData.sort(sortBy('userPoints'));
+        res.render('Inside/Leaderboard.ejs', {username, points, usersData});
     }
 })
 

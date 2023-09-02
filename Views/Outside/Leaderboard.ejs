@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://st2.depositphotos.com/1003899/5538/v/950/depositphotos_55385721-stock-illustration-stylized-calligraphic-b.jpg" type="image/x-icon">
+    <title>Bookguessr</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        /* Style for the login container */
+        .leaderboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        /* Style for leaderboard table */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .leaderboard-table th {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Style for leaderboard table header */
+        .leaderboard-header {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-size: xx-large;
+            color: rgb(193, 193, 193);
+        }
+
+        /* Style for leaderboard table rows */
+        .leaderboard-row {
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+<%- include('Partials/Navbar-Blue.ejs') %>
+<header class="bg-primary text-white py-5">
+    <div class="container text-center">
+      <h1 class="display-3">Leaderboard</h1>
+    </div>
+  </header>
+<div class="container">
+    <br>
+    <div class="leaderboard-container">
+        <table class="leaderboard-table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Player Name</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Add rows for leaderboard data here -->
+            <% for(let i=0; i<usersData.length; i++) { %>
+                <tr class="leaderboard-row">
+                    <td><%= i+1 %></td>
+                    <td><%= usersData[i].userName %></td>
+                    <td><%= usersData[i].userPoints %></td>
+                </tr>
+            <% } %>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <br><br><br><br>
+</div>
+<%- include('Partials/Footer-Blue.ejs') %>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
