@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://st2.depositphotos.com/1003899/5538/v/950/depositphotos_55385721-stock-illustration-stylized-calligraphic-b.jpg" type="image/x-icon">
+  <title>Bookguessr</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .navbar-item:hover,
+    .navbar-link:hover,
+    #signUpButton:hover,
+    #logInButton:hover {
+      text-decoration: none !important;
+    }
+    #right_1,
+    #right_2,
+    #right_3,
+    #right_4,
+    #right_5,
+    #right_0,
+    #wrong_1,
+    #wrong_2,
+    #wrong_3,
+    #wrong_4,
+    #wrong_5,
+    #wrong_0{
+      padding: 15px;
+      margin: 10px;
+      font-size: large;
+    }
+    #topPlaceholder{
+      color: rgb(101, 122, 227);
+    }
+    #revealBtn{
+      padding: 15px;
+      margin: 10px;
+      font-size: x-large;
+    }
+    #skipBtn{
+      padding: 15px;
+      margin: 10px;
+      font-size: x-large;
+    }
+  </style>
+</head>
+<body style="background-color: black; color: white;">
+  <%- include('Partials/Navbar-Blue.ejs') %> 
+  <header class="bg-primary text-white py-3">
+    <div class="container text-center">
+      <h1 class="display-4">Excerpt</h1>
+    </div>
+  </header>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-4">
+          <blockquote class="blockquote">
+            <p><%= curExtract %></p>
+          </blockquote>
+        </div>
+        <div class="container text-center" id="bookOptions">
+            <div class="row">
+              <div class="col">
+                  <% if(options[0]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_0"><%= options[0] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_0"><%= options[0] %></button>
+                  <% } %>
+              </div>
+              <div class="col">
+                  <% if(options[1]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_1"><%= options[1] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_1"><%= options[1] %></button>
+                  <% } %>           
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <% if(options[2]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_2"><%= options[2] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_2"><%= options[2] %></button>
+                  <% } %>
+              </div>
+              <div class="col">
+                  <% if(options[3]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_3"><%= options[3] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_3"><%= options[3] %></button>
+                  <% } %>           
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <% if(options[4]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_4"><%= options[4] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_4"><%= options[4] %></button>
+                  <% } %>
+              </div>
+              <div class="col">
+                  <% if(options[5]==curBookName){ %>
+                      <button type="button" class="btn btn-light btn-block" id="right_5"><%= options[5] %></button>
+                  <% } else{ %>
+                      <button type="button" class="btn btn-light btn-block" id="wrong_5"><%= options[5] %></button>
+                  <% } %>           
+              </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn btn-primary btn-block btn-lg" id="revealBtn">Reveal Answer</button>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary btn-block btn-lg" id="skipBtn">Skip</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card" id="bookAbout">
+          <div class="card-body">
+            <h2 class="text-center">About Book</h2>
+            <%= bookAbout %>
+          </div>
+        </div>
+        <br>
+        <div class="card" id="authorAbout">
+          <div class="card-body">
+            <h2 class="text-center">About Author</h2>
+            <%= authorAbout %>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
+  <%- include('Partials/Footer-Blue.ejs') %>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+<script>
+    $(document).ready(function(){
+      var isCorrect = true;
+      var hasTried = false;
+      $("#skipBtn").click(function(){
+        if(!hasTried){
+          $("#skipBtn").prop('disabled', true);
+          $("#skipBtn").html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>')
+          location.reload();
+        }
+        else{
+          $("#skipBtn").prop('disabled', true);
+          $("#skipBtn").html('<div class="spinner-grow" role="status"><span class="sr-only">Loading...</span></div>')
+          $.post("/play", {isCorrect}, function(){
+            location.reload();
+          })
+        }
+      })
+      $("#bookAbout").hide();
+      $("#authorAbout").hide();
+      for(let i=0; i<6; i++){
+        if($("#wrong_"+i).get(0)!=null){
+          $("#wrong_"+i).click(function(){
+            $("#wrong_"+i).removeClass('btn-light');
+            $("#wrong_"+i).addClass('btn-outline-danger');
+            $("#wrong_"+i).prop('disabled', true);
+            $("#skipBtn").prop('disabled', true);
+            isCorrect = false;
+            hasTried = true;
+          })
+        }
+      }
+      for(let i=0; i<6; i++){
+        if($("#right_"+i).get(0)!=null){
+          $("#right_"+i).click(function(){
+            $("#right_"+i).removeClass('btn-light');
+            $("#right_"+i).addClass('btn-success');
+            $("#skipBtn").html("Next");
+            $("#skipBtn").prop('disabled', false);
+            $("#revealBtn").prop('disabled', true);            
+            $("#bookAbout").fadeTo("slow", 1);
+            $("#authorAbout").fadeTo("slow", 1);
+            $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 500);
+            for(let j=0; j<6; j++){
+                if($("#wrong_"+j).get(0)!=null){
+                    $("#wrong_"+j).prop('disabled', true);
+                }
+            }
+            hasTried = true;
+          })
+        }
+      }
+      $("#revealBtn").click(function(){
+        $("#skipBtn").html("Next");
+        $("#skipBtn").prop('disabled', false);
+        $("#revealBtn").prop('disabled', true);
+        $("#bookAbout").fadeTo("slow", 1);
+        $("#authorAbout").fadeTo("slow", 1);
+        $("html, body").animate({ scrollTop: $("#bookOptions").offset().top }, 500);
+        for(let i=0; i<6; i++){
+          if($("#wrong_"+i).get(0)!=null){
+            $("#wrong_"+i).prop('disabled', true);
+          }
+        }
+        for(let i=0; i<6; i++){
+          if($("#right_"+i).get(0)!=null){
+            $("#right_"+i).removeClass('btn-light');
+            $("#right_"+i).addClass('btn-success');
+          }
+        }
+        isCorrect = false;
+        hasTried = true;
+      })
+	});
+</script>
+</html>

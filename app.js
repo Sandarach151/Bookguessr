@@ -1,162 +1,25 @@
 const express = require('express');
-const mysql = require('mysql2');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-const multer = require('multer');
-var EPub = require('epub');
-const cheerio = require('cheerio');
+const bcrypt = require('bcrypt');
+const sqlcon = require("./JS/sqlcon");
+const squery = sqlcon.squery;
+const multerUpload = require("./JS/multerUpload");
+const upload = multerUpload.upload;
+const uploadProcess = require("./JS/uploadProcess");
+const mergedProcess = uploadProcess.mergedProcess;
+const signup = require("./JS/signup");
+const insertUser = signup.insertUser;
+const handlePlay = require('./JS/handlePlay');
+const showPlay = handlePlay.showPlay;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({secret: 'squire'}));
 app.set('views', './Views');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'Uploads/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.originalname + '-' + uniqueSuffix)
-    }
-});
 
-const upload = multer({ 
-    storage: storage 
-});
-
-const con = mysql.createConnection({
-	host: "bookguessr-db.clybag8f9qab.ap-southeast-2.rds.amazonaws.com",
-	user: "squire",
-	password: "genesis4723",
-	database: "bookguessr_db2"
-});
-
-async function squery(queryString, values) {
-	return new Promise((resolve, reject) => {
-		con.connect(function (err) {
-			if (err) reject(err);
-			con.query(queryString, values, function (err, result, fields) {
-				if (err) reject(err);
-				resolve(result);
-			});
-		});
-	});
-}
-
-async function mergedProcess(filepath, authorName, authorAbout, bookName, bookAbout, bookPubYear) {
-    try {
-        const chapters = await parse(filepath);
-        console.log(chapters.length);
-        const chapterText = await toText(chapters);
-        console.log(chapterText.length);
-        const selectedExtracts = await filter(chapterText);
-        console.log(selectedExtracts.length);
-        const shuffledExtracts = await shuffle(selectedExtracts, 500);
-        console.log(shuffledExtracts.length);
-
-        const haveAuthor = await squery('SELECT authorID FROM author WHERE authorName = ?', [authorName]);
-
-        if (haveAuthor.length == 0) {
-            await squery('INSERT INTO author (authorName, authorAbout) VALUES (?, ?)', [authorName, authorAbout]);
-        }
-
-        const authorIDs = await squery('SELECT authorID FROM author WHERE authorName = ?', [authorName]);
-        const authorID = authorIDs[0].authorID;
-
-        const haveBook = await squery('SELECT bookID FROM books WHERE bookName = ?', [bookName]);
-
-        if (haveBook.length == 0) {
-            await squery('INSERT INTO books (bookName, bookAuthorID, bookAbout, bookPubYear) VALUES (?, ?, ?, ?)', [bookName, authorID, bookAbout, bookPubYear]);
-
-            const bookIDResult = await squery('SELECT bookID FROM books WHERE bookName = ?', [bookName]);
-            const bookID = bookIDResult[0].bookID;
-
-            for (let i = 0; i < shuffledExtracts.length; i++) {
-                squery('INSERT INTO extracts (extractText, extractBookID, extractRating) VALUES (?, ?, 2000)', [shuffledExtracts[i], bookID]);
-            }
-        }
-    } catch (error) {
-        // Handle any errors that occurred during the process
-        console.error(error);
-    }
-}
-
-async function parse(filepath) {
-    return new Promise((resolve, reject) => {
-        let epub = new EPub(filepath);
-        const chapters = [];
-        let chapterCounter = 0;
-
-        epub.on("end", function () {
-            epub.flow.forEach(function (chapter) {
-                epub.getChapter(chapter.id, function (error, text) {
-                    if (error) {
-                    reject(error);
-                    } else {
-                    chapters.push(text);
-                    chapterCounter++;
-
-                    if (chapterCounter === epub.flow.length) {
-                        resolve(chapters);
-                    }
-                    }
-                });
-            });
-        });
-
-        epub.parse();
-    });
-}
-
-async function toText(chapters) {
-    const chapterText = [];
-    for (let i = 0; i < chapters.length; i++) {
-        const $ = cheerio.load(chapters[i]);
-        const plainText = $.text();
-        chapterText.push(plainText);
-        if (i == chapters.length - 1) {
-            return chapterText;
-        }
-    }
-}
-
-async function filter(chapterText) {
-    var selectedExtracts = [];
-    for (let i = 0; i < chapterText.length; i++) {
-        const sentences = chapterText[i].split(". ");
-        const filteredSentences = sentences.filter(sentence => sentence.length >= 10);
-        // console.log(filteredSentences.length);
-        const chunkSize = 5;
-        const chunks = [];
-        for (let j = 0; j < filteredSentences.length; j += chunkSize) {
-            const chunk = filteredSentences.slice(j, j + chunkSize).join('. ');
-            chunks.push(chunk);
-        }
-        // console.log(chunks.length);
-        // console.log(chunks[0]);
-        for(let j=0; j<chunks.length; j++){
-            selectedExtracts.push(chunks[j]);
-        }
-        if (i == chapterText.length - 1) {
-            return selectedExtracts;
-        }
-    }
-}
-
-async function shuffle(array, n) {
-    const shuffledArray = array.slice();
-    let currentIndex = shuffledArray.length;
-    let temporaryValue, randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = shuffledArray[currentIndex];
-        shuffledArray[currentIndex] = shuffledArray[randomIndex];
-        shuffledArray[randomIndex] = temporaryValue;
-    }
-    return shuffledArray.slice(0, Math.min(n, array.length));
-}
-
-app.post('/upload-checkpoint', upload.none(), function(req, res, next) {
+app.post('/upload-checkpoint', (req, res) => {
     if(req.body.username=='sandarach' && req.body.password=='genesis4723'){
         res.render('Upload.ejs');
     }
@@ -170,90 +33,91 @@ app.post('/upload', upload.single('uploaded_file'), function (req, res, next) {
     res.render('Upload.ejs');
 });
 
-app.get('/upload-checkpoint', function(req, res) {
-    res.render('UploadCheckpoint.ejs');
+app.get('/upload-checkpoint', async (req, res) => {
+    if(!req.session.user_id){
+        res.render('Outside/UploadCheckpoint.ejs');
+    }
+    else{
+        const data = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
+        const username = data[0].userName;
+        const points = data[0].userPoints;
+        res.render('Inside/UploadCheckpoint.ejs', {username, points});
+    }
 });
 
-app.get('/play', (req, res) => {
-    var curExtractID;
-    var curExtract;
-    var curBookID;
-    var curBookName;
-    var wrongBookIDs;
-    var bookAbout;
-    var curAuthorID;
-    var authorAbout;
-    var options = [];
-    squery("SELECT COUNT(*) FROM extracts;")
-        .then((data) => {
-            var numRows = data[0]['COUNT(*)'];
-            curExtractID = Math.floor(Math.random() * numRows);
-            return squery('SELECT * FROM extracts WHERE extractID = ?', [curExtractID]);
-        })
-        .then((data) => {
-            curExtract = data[0].extractText;
-            curBookID = data[0].extractBookID;
-            return squery('SELECT * FROM books WHERE bookID = ?', [curBookID]);
-        })
-        .then((data) => {
-            curBookName = data[0].bookName;
-            bookAbout = data[0].bookAbout;
-            curAuthorID = data[0].bookAuthorID;
-            return squery('SELECT COUNT(*) FROM books;');
-        })
-        .then((data) => {
-            const uniqueIntegers = new Set();
-            uniqueIntegers.add(curBookID);
-            while (uniqueIntegers.size < 6) {
-              const randomNumber = Math.floor(Math.random() * (data[0]['COUNT(*)'])) + 1;
-              uniqueIntegers.add(randomNumber);
-            }
-            wrongBookIDs = Array.from(uniqueIntegers);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[0]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[1]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[2]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[3]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[4]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            return squery('SELECT bookName FROM books WHERE bookID = ?', [wrongBookIDs[5]]);
-        })
-        .then((data) => {
-            options.push(data[0].bookName);
-            for (let i = options.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [options[i], options[j]] = [options[j], options[i]];
-            }
-            return squery('SELECT authorAbout FROM author WHERE authorID = ?', [curAuthorID]);
-        })
-        .then((data) => {
-            authorAbout = data[0].authorAbout;
-            res.render('Play.ejs', { options, curBookName, curExtract, bookAbout, authorAbout });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
-
-app.get('/about', (req, res) => {
-    res.render('About.ejs');
+app.post('/play', async (req, res) => {
+    console.log(req.body.isCorrect);
+    if(req.body.isCorrect=="true"){
+        await squery('UPDATE users SET userPoints = userPoints + 100 WHERE userID = ?', [req.session.user_id]);
+    }
+    res.redirect('./play');
 })
 
-app.get('/', (req, res) => {
-    res.render('MainPage.ejs');
+app.get('/play', async (req, res) => {
+    if(!req.session.user_id){
+        res.render('Outside/Login.ejs');
+    }
+    else{
+        const {options, curBookName, curExtract, bookAbout, authorAbout} = await showPlay();
+        const userData = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
+        const username = userData[0].userName;
+        const points = userData[0].userPoints;
+        res.render('Inside/Play.ejs', {options, curBookName, curExtract, bookAbout, authorAbout, username, points});
+    }
+});
+
+app.get('/about', async (req, res) => {
+    if(!req.session.user_id){
+        res.render('Outside/About.ejs');
+    }
+    else{
+        const data = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
+        const username = data[0].userName;
+        const points = data[0].userPoints;
+        res.render('Inside/About.ejs', {username, points})
+    }
+})
+
+app.get('/signup', (req, res) => {
+    res.render('Outside/Signup.ejs');
+})
+
+app.post('/signup', (req, res) => {
+    insertUser(req.body.username, req.body.password);
+    res.redirect('./');
+})
+
+app.get('/login', (req, res) => {
+    res.render('Outside/Login.ejs');
+})
+
+app.post('/login', async (req, res) => {
+    const data = await squery('SELECT * FROM users WHERE userName = ?', [req.body.username]);
+    if(data.length==0){
+        res.redirect('./login');
+    }
+    else{
+        const isValid = await bcrypt.compare(req.body.password, data[0].userPassword);
+        if(isValid){
+            req.session.user_id = data[0].userID;
+            res.redirect('./');
+        }
+        else{
+            res.redirect('./login');
+        }
+    }
+})
+
+app.get('/', async (req, res) => {
+    if(!req.session.user_id){
+        res.render('Outside/MainPage.ejs');
+    }
+    else{
+        const data = await squery('SELECT * FROM users WHERE userID = ?', [req.session.user_id]);
+        const username = data[0].userName;
+        const points = data[0].userPoints;
+        res.render('Inside/MainPage.ejs', {username, points});
+    }
 })
 
 app.listen(process.env.PORT || 3000, () => {

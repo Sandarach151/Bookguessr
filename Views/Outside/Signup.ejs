@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://st2.depositphotos.com/1003899/5538/v/950/depositphotos_55385721-stock-illustration-stylized-calligraphic-b.jpg" type="image/x-icon">
+    <title>Bookguessr - Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        /* Style for the login container */
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<%- include('Partials/Navbar-Dark.ejs') %>
+<div class="container">
+  <br>
+    <div class="login-container">
+      <h2 class="title is-4 has-text-centered" style="color: rgb(193, 193, 193); font-size: xx-large;">Sign Up</h2>
+      <br>  
+      <form action="\signup" method="POST">
+            <div class="field">
+                <label class="label" style="color: rgb(153, 153, 153); font-size: xx-large;">Username</label>
+                <div class="control">
+                    <input class="input" type="text" style="font-size: x-large;" placeholder="Your username" name="username" id="username">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" style="color: rgb(153, 153, 153); font-size: xx-large;">Password</label>
+                <div class="control">
+                    <input class="input" type="password" style="font-size: x-large;" placeholder="Your password" name="password" id="password">
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link is-fullwidth" style="font-size: x-large;">Sign Up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br><br><br>
+</div>
+
+<%- include('Partials/Footer-Dark.ejs') %>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
