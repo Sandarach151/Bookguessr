@@ -33,12 +33,12 @@
     #topPlaceholder{
       color: rgb(101, 122, 227);
     }
-    #revealBtn{
+    #revealBtn, #skipBtn{
       padding: 15px;
       margin: 10px;
       font-size: x-large;
     }
-    #skipBtn{
+    #readAloudBtn{
       padding: 15px;
       margin: 10px;
       font-size: x-large;
@@ -57,7 +57,7 @@
       <div class="card-body">
         <div class="mb-4">
           <blockquote class="blockquote">
-            <p><%= curExtract %></p>
+            <p id="extractText"><%= curExtract %></p>
           </blockquote>
         </div>
         <div class="container text-center" id="bookOptions">
@@ -117,6 +117,9 @@
               <button type="button" class="btn btn-primary btn-block btn-lg" id="revealBtn">Reveal Answer</button>
             </div>
             <div class="col">
+              <button type="button" class="btn btn-primary btn-block btn-lg" id="readAloudBtn">Read Aloud</button>
+            </div>
+            <div class="col">
               <button type="button" class="btn btn-primary btn-block btn-lg" id="skipBtn">Skip</button>
             </div>
           </div>
@@ -149,7 +152,11 @@
     $(document).ready(function(){
       var isCorrect = true;
       var hasTried = false;
+      var synth = null;
       $("#skipBtn").click(function(){
+        if(synth!=null){
+          synth.cancel();
+        }
         if(!hasTried){
           $("#skipBtn").prop('disabled', true);
           $("#skipBtn").html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>')
@@ -161,6 +168,29 @@
           $.post("/play", {isCorrect}, function(){
             location.reload();
           })
+        }
+      })
+      $("#readAloudBtn").click(function(){
+        if($("#readAloudBtn").html()=="Read Aloud"){
+          if('speechSynthesis' in window) {
+            $("#readAloudBtn").html("Cancel");
+            var curExtract = $("#extractText").html();
+            synth = window.speechSynthesis;
+            var utterance = new SpeechSynthesisUtterance(curExtract);
+            utterance.rate = 1.0;
+            synth.speak(utterance);
+            $("#readAloudBtn").removeClass("btn-primary");
+            $("#readAloudBtn").addClass("btn-secondary");
+          }
+          else{
+            console.log("No Speech");
+          }
+        }
+        else{
+          synth.cancel();
+          $("#readAloudBtn").html("Read Aloud");
+          $("#readAloudBtn").removeClass("btn-secondary");
+          $("#readAloudBtn").addClass("btn-primary");
         }
       })
       $("#bookAbout").hide();

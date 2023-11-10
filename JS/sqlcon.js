@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const con = mysql.createConnection({
-	host: "bookguessr-db.clybag8f9qab.ap-southeast-2.rds.amazonaws.com",
-	user: "squire",
-	password: "genesis4723",
-	database: "bookguessr_db2"
+	host: "localhost",
+	user: "root",
+	password: "Fibo@13213455",
+	database: "bookguessr"
 });
 
 async function squery(queryString, values) {
